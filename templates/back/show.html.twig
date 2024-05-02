@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>User</h1>
+        <h1>USER</h1>
 
         <table class="table">
             <tbody>
@@ -33,7 +33,7 @@
                     <td>{{ user.mdp }}</td>
                 </tr>
                 <tr>
-                    <th>Role_id</th>
+                    <th>Role</th>
 <td>{{ user.role.roleName }}</td>
                 </tr>
             </tbody>
@@ -44,5 +44,6 @@
         <a href="{{ path('app_back_edit', {'id': user.id}) }}" class="btn btn-info">Edit</a>
 
         {{ include('back/_delete_form.html.twig') }}
+<a href="{{ path('download_form_data', {'id': user.id}) }}" class="btn btn-secondary">Download PDF</a>
     </div>
 {% endblock %}

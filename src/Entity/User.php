@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\Table(name: "utlilisateur")]
 #[ORM\Index(name: "role_id", columns: ["role_id"])]
-class User implements PasswordAuthenticatedUserInterface
+class User 
 {
     #[ORM\Id]
     #[ORM\Column(type: "integer", nullable: false)]
@@ -32,6 +32,7 @@ class User implements PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Roles::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "id")]
     private $role;
+    private $resetToken;
 
     public function getId(): ?int
     {
@@ -114,5 +115,13 @@ class User implements PasswordAuthenticatedUserInterface
         $this->role = $role;
         return $this;
     }
+   
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+    
     
 }

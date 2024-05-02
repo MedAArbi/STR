@@ -52,3 +52,7 @@ app_scooter_booking:
     path: /scooter-booking
     controller: App\Controller\ScooterController::booking
     methods: [GET]
+chart_route:
+    path: /chart
+    controller: App\Controller\ChartController::index
+

@@ -1,15 +1,16 @@
- {# templates/security/login.html.twig #}
-{% extends 'home/index.html.twig' %}
+{% extends 'home/default.html.twig' %}
+
 {% block body %}
- <form action="{{ path('app_login') }}" method="post">
-   <label for="mail">Mail:</label>
-   <input type="email" id="mail" name="mail" required>
-   <label for="mdp">Mot de passe:</label>
-   <input type="password" id="mdp" name="mdp" required>
-   {# Assurez-vous que le jeton CSRF est inclus si nécessaire #}
-   <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-   {# Ajoutez le champ caché pour la redirection #}
-   <button type="submit">Connexion</button>
- </form>
- <a href="{{ path('app_register') }}">Créer un compte</a>
+    <form action="{{ path('app_login') }}" method="post">
+        <br>
+        <label for="mail">Mail:</label>
+        <input type="email" id="mail" name="mail" required>
+        <label for="mdp">Mot de passe:</label>
+        <input type="password" id="mdp" name="mdp" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button type="submit" class="btn btn-primary">Connexion</button>
+      
+        <a href="{{ path('forgot_password') }}"><input  class="btn" value="Mot de passe oublié ?"></a>
+        <a href="{{ path('app_register') }}">Créer un compte</a>
+    </form>
 {% endblock %}

@@ -1,28 +1,45 @@
-{% extends 'home/index.html.twig' %}
+{% extends 'home/default.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Register</h1>
 
-    {{ form_start(form) }}
-        {{ form_row(form.nom) }}
-        {{ form_errors(form.nom) }} {# Affiche les erreurs de validation pour le champ nom #}
+    {{  form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'registration-form'}}) }}
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+            {{ form_errors(form.nom) }}
+        </div>
         
-        {{ form_row(form.mail) }}
-        {{ form_errors(form.mail) }} {# Affiche les erreurs de validation pour le champ mail #}
+        <div class="form-group">
+            {{ form_label(form.mail) }}
+            {{ form_widget(form.mail) }}
+            {{ form_errors(form.mail) }}
+        </div>
         
-        {{ form_row(form.numTel) }}
-        {{ form_errors(form.numTel) }} {# Affiche les erreurs de validation pour le champ numTel #}
+        <div class="form-group">
+            {{ form_label(form.numTel) }}
+            {{ form_widget(form.numTel) }}
+            {{ form_errors(form.numTel) }}
+        </div>
         
-        {{ form_row(form.adresse) }}
-        {{ form_errors(form.adresse) }} {# Affiche les erreurs de validation pour le champ adresse #}
+        <div class="form-group">
+            {{ form_label(form.adresse) }}
+            {{ form_widget(form.adresse) }}
+            {{ form_errors(form.adresse) }}
+        </div>
         
-        {{ form_row(form.mdp) }}
-        {{ form_errors(form.mdp) }} {# Affiche les erreurs de validation pour le champ mdp #}
+        <div class="form-group">
+            {{ form_label(form.mdp) }}
+            {{ form_widget(form.mdp) }}
+            {{ form_errors(form.mdp) }}
+        </div>
         
-        {# Champ rôle masqué avec une valeur par défaut (par exemple, 2) #}
-{{ form_widget(form.role, {'attr': {'value': '2'}}) }}
-        <button type="submit">Register</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
     {{ form_end(form) }}
+</div>
 {% endblock %}

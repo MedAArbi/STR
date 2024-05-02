@@ -1,0 +1,59 @@
+{% extends 'Back.html.twig' %}
+
+{% block title %}Charts{% endblock %}
+
+{% block body %}
+    <div style="width: 400px; height: 400px;">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chartData = {
+            labels: Object.keys({{ data|json_encode|raw }}),
+            datasets: [{
+                label: 'Number of Users',
+                backgroundColor: ['orange', 'red', 'blue'], // Set your own colors here
+                borderColor: ['orange', 'red', 'blue'], // Make sure to have border colors of the same color
+                data: Object.values({{ data|json_encode|raw }})
+            }]
+        };
+
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: options
+        });
+
+        // Function to open the chart window within the same page
+        function openChartWindow() {
+            document.getElementById('chartContainer').style.display = 'block';
+        }
+
+        // Function to close the chart window
+        function closeChartWindow() {
+            document.getElementById('chartContainer').style.display = 'none';
+        }
+    </script>
+
+    <div id="chartContainer" style="display: none;">
+        <h1>Chart</h1>
+        <div style="width: 400px; height: 400px;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Button to open the chart window -->
+   
+{% endblock %}

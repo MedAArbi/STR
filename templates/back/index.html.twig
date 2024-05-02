@@ -1,44 +1,115 @@
 {% extends 'Back.html.twig' %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>Users</h1>
 
-    <table class="table">
+    <!-- Client-side search input -->
+    <input class="form-control bg-dark border-0" type="search" placeholder="Search" id="searchKeyword">
+
+    <table id="usersTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Mail</th>
                 <th>Num_tel</th>
                 <th>Adresse</th>
                 <th>Mdp</th>
                 <th>Role_id</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.mail }}</td>
-                <td>{{ user.numTel }}</td>
-                <td>{{ user.adresse }}</td>
-                <td>{{ user.mdp }}</td>
-                                <td>{{ user.role }}</td>
-
-                <td>
-                    <a href="{{ path('app_back_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_back_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+        <tbody id="myTable">
+            {% if users is not empty %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.mail }}</td>
+                        <td>{{ user.numTel }}</td>
+                        <td>{{ user.adresse }}</td>
+                        <td>{{ user.mdp }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>
+                            <a href="{{ path('app_back_show', {'id': user.id}) }}" class="btn btn-danger">Show</a>
+                            <a href="{{ path('app_back_edit', {'id': user.id}) }}" class="btn btn-secondary">Edit</a>
+                            {{ include('back/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8">No records found</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_new') }}">Create new</a>
+    <!-- Button for creating new users -->
+    <a href="{{ path('app_back_new') }}" class="btn btn-primary">Create New User</a>
+    <!-- Button for creating charts -->
+    <a href="#" class="btn btn-success" onclick="openChartWindow('{{ path('chart_route') }}')">Create Charts</a>
+
+    <br>
+    <!-- Link to Home page -->
+    <a href="{{ path('app_home') }}">Home</a>
+
+    <!-- Pagination controls -->
+    <div class="pagination-custom text-center mt-3">
+        {{ knp_pagination_render(users) }}
+    </div>
+
+    <!-- Client-side dynamic search script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#searchKeyword").on("input", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle(
+                        $(this).find('td:nth-child(2)').text().toLowerCase().startsWith(value) ||
+                        $(this).find('td:nth-child(4)').text().toLowerCase().startsWith(value)
+                    );
+                });
+            });
+        });
+    </script>
+    <style>
+        /* Custom pagination styles */
+        .pagination-custom {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .pagination-custom .page-item {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .pagination-custom .page-item .page-link {
+            background-color: #333;
+            border-color: #333;
+            color: #fff;
+            padding: 6px 12px; /* Adjust padding to increase/decrease button size */
+            border-radius: 5px; /* Add border radius for rounded corners */
+        }
+
+        .pagination-custom .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination-custom .page-item.disabled .page-link {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+    </style>
+
+    <!-- JavaScript function to open chart window -->
+    <script>
+        function openChartWindow(url) {
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+    </script>
 {% endblock %}

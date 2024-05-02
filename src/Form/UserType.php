@@ -18,41 +18,41 @@ class UserType extends AbstractType
         $builder
             ->add('nom', null, [
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\NotBlank(message: 'Le nom ne peut pas être vide.'),
                     new Assert\Regex([
                         'pattern' => '/^[a-zA-Z]+$/',
-                        'message' => 'Le nom doit contenir uniquement des lettres alphabétiques',
+                        'message' => 'Le nom doit contenir uniquement des lettres alphabétiques.',
                     ]),
                 ],
             ])
             ->add('mail', null, [
                 'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Email(['message' => 'Adresse e-mail invalide']),
+                    new Assert\NotBlank(message: 'L\'adresse e-mail ne peut pas être vide.'),
+                    new Assert\Email(['message' => 'L\'adresse e-mail est invalide.']),
                 ],
             ])
             ->add('numTel', null, [
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\NotBlank(message: 'Le numéro de téléphone ne peut pas être vide.'),
                     new Assert\Regex([
-                        'pattern' => '/^\d{8}$/',
-                        'message' => 'Le numéro de téléphone doit contenir exactement 8 chiffres',
+                        'pattern' => '/^[259]\d{7}$/',
+                        'message' => 'Le numéro de téléphone doit commencer par 2, 5 ou 9 et contenir exactement 8 chiffres.',
                     ]),
                 ],
             ])
             ->add('adresse', null, [
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\NotBlank(message: 'L\'adresse ne peut pas être vide.'),
                 ],
             ])
             ->add('mdp', null, [
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide.'),
                 ],
             ])
-            ->add('role')
         ;
     }
+    
     
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -313,3 +313,22 @@ h6,
     background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9)), url(../img/bg-banner.jpg);
     background-attachment: fixed;
 }
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Espacement entre les groupes de formulaire */
+  }
+  
+  label {
+    margin-bottom: 5px; /* Espace entre le label et le champ de saisie */
+  }
+  
+  input[type=email], input[type=password], input[type=text], input[type=tel] {
+    width: 100%; /* Largeur complète pour les champs de saisie */
+    padding: 10px; /* Espacement à l'intérieur des champs */
+    border: 1px solid #ddd; /* Bordure subtile pour les champs */
+    border-radius: 4px; /* Bords arrondis pour les champs */
+  }
+  
+  
+  

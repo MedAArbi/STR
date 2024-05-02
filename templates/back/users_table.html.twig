@@ -1,0 +1,37 @@
+<table id="usersTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Mail</th>
+            <th>Num_tel</th>
+            <th>Adresse</th>
+            <th>Mdp</th>
+            <th>Role_id</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if users is not empty %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.mail }}</td>
+                    <td>{{ user.numTel }}</td>
+                    <td>{{ user.adresse }}</td>
+                    <td>{{ user.mdp }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <a href="{{ path('app_back_show', {'id': user.id}) }}">show</a>
+                        <a href="{{ path('app_back_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8">No records found</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
